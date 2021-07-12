@@ -8,7 +8,7 @@ exports.CenteredView = Styled.View`
     margin: auto;
 `;
 
-exports.FormView = ({ children }) => {
+exports.FormView = function FormView({ children }) {
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>

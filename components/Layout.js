@@ -6,9 +6,9 @@ const {
     Platform
 } = require('react-native');
 
-module.exports = function Layout(Component) {
+module.exports = function LayoutHOC(Component) {
 
-    return (props) => {
+    return function Layout(props) {
 
         return (
             <>

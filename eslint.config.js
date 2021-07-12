@@ -13,9 +13,10 @@ module.exports = {
         'react-hooks'
     ],
     extends: [
+        'plugin:@hapi/recommended',
         'standard-react',
         'plugin:jsx-a11y/recommended',
-        '@hapi/eslint-config-hapi'
+        'plugin:react/recommended'
     ],
     rules: {
         'react/jsx-indent': ['error', 4],
@@ -25,7 +26,8 @@ module.exports = {
         'react/react-in-jsx-scope': 'off',
         'react-hooks/exhaustive-deps': 'warn',
         'react-hooks/rules-of-hooks': 'error',
-        'strict': 'off'
+        'strict': 'off',
+        'no-unused-vars': ['warn', { vars: 'all', varsIgnorePattern: '^internals|React$', args: 'none' }]
     },
     overrides: [
         {

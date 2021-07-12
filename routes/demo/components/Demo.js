@@ -43,7 +43,7 @@ module.exports = function Demo({ counter, increment, double }) {
                         onPress={double}
                     />
                 </ButtonWrapper>
-                <Heading>Type somethin'</Heading>
+                <Heading>Type somethin&apos;</Heading>
                 <Input
                     value={input}
                     onChangeText={setInput}
