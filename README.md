@@ -1,22 +1,4 @@
-# shrexpo
-
-> get out of my swamp!
-
-Shrexpo is an opinionated, curated set of tools for building React Native applications.
-
-...
-
-## Requirements
-
-...
-
-## Getting Started
-
-...
-
-## Application Structure
-
-...
+# sous
 
 ### A note on file- and directory-naming
 Files should be named with `dash-case.js` except in the case of containers or components, which should use `PascalCase.js`.  This includes reducer, action, and action-type files.  Filenames need not repeat information specified by their directory names.  For example, `containers/Counter.js` or `containers/Counter/index.js` are preferred over `containers/CounterContainer.js` or `containers/CounterContainer/CounterContainer.js`.  The container may still be required into a file using the "full name" e.g.,
@@ -33,9 +15,6 @@ We favor the [hapi style guide](https://hapijs.com/styleguide).  Yes, even when 
 ### Developer Tools
 
 ...
-
-## Testing
-Tests are automatically picked-up by Jest.  You may add tests under any directory named `__test__` or in files suffixed `.spec.js` or `.test.js`.  If you wish to run a coverage report, run `npm test -- --coverage`.
 
 ## Deployment
 
