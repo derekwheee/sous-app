@@ -3,7 +3,7 @@ const { default: Styled } = require('styled-components/native');
 const getBaseStyles = (theme) => {
 
     return `
-        font-family: 'OpenSans_400Regular';
+        font-family: 'Poppins_300Light';
         font-size: ${theme.spacing(2)}px;
         color: ${theme.palette.etch};
     `;
@@ -22,6 +22,7 @@ exports.CenteredText = Styled.Text`
 exports.H1 = Styled.Text`
     ${({ theme }) => getBaseStyles(theme)}
     margin-bottom: ${({ theme }) => theme.spacing(4)}px;
+    font-family: 'Poppins_500Medium';
     font-size: ${({ theme }) => theme.spacing(4.5)}px;
     text-transform: lowercase;
 `;
@@ -29,7 +30,7 @@ exports.H1 = Styled.Text`
 exports.H2 = Styled.Text`
     ${({ theme }) => getBaseStyles(theme)}
     margin-bottom: ${({ theme }) => theme.spacing(3)}px;
-    font-family: 'OpenSans_700Bold';
+    font-family: 'Poppins_600SemiBold';
     font-size: ${({ theme }) => theme.spacing(3)}px;
     font-weight: bold;
     text-transform: lowercase;
@@ -38,7 +39,7 @@ exports.H2 = Styled.Text`
 exports.H3 = Styled.Text`
     ${({ theme }) => getBaseStyles(theme)}
     margin-bottom: ${({ theme }) => theme.spacing(2.4)}px;
-    font-family: 'OpenSans_700Bold';
+    font-family: 'Poppins_600SemiBold';
     font-size: ${({ theme }) => theme.spacing(2.4)}px;
     font-weight: bold;
     text-transform: lowercase;

@@ -12,13 +12,20 @@ const { ApplicationProvider } = require('@ui-kitten/components');
 const M = require('middle-end');
 const Theme = require('theme');
 const Routes = require('routes');
+const { DrawerProvider } = require('components/Drawer');
 const {
     useFonts,
-    OpenSans_400Regular,
-    OpenSans_400Regular_Italic,
-    OpenSans_700Bold,
-    OpenSans_700Bold_Italic
-} = require('@expo-google-fonts/open-sans');
+    Poppins_100Thin,
+    Poppins_100Thin_Italic,
+    Poppins_300Light,
+    Poppins_300Light_Italic,
+    Poppins_400Regular,
+    Poppins_400Regular_Italic,
+    Poppins_500Medium,
+    Poppins_500Medium_Italic,
+    Poppins_600SemiBold,
+    Poppins_600SemiBold_Italic
+} = require('@expo-google-fonts/poppins');
 
 const middleEnd = M.create({
     logErrors: process.env.NODE_ENV !== 'test'
@@ -29,10 +36,16 @@ const Stack = createStackNavigator();
 module.exports = function App() {
 
     const [fontsLoaded] = useFonts({
-        OpenSans_400Regular,
-        OpenSans_400Regular_Italic,
-        OpenSans_700Bold,
-        OpenSans_700Bold_Italic
+        Poppins_100Thin,
+        Poppins_100Thin_Italic,
+        Poppins_300Light,
+        Poppins_300Light_Italic,
+        Poppins_400Regular,
+        Poppins_400Regular_Italic,
+        Poppins_500Medium,
+        Poppins_500Medium_Italic,
+        Poppins_600SemiBold,
+        Poppins_600SemiBold_Italic
     });
 
     if (!fontsLoaded) {
@@ -40,49 +53,53 @@ module.exports = function App() {
     }
 
     return (
-        <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : null}
-            style={{ flex: 1 }}
-        >
-            <SafeAreaView style={{ flex: 1, backgroundColor: Theme.palette.brand[500] }}>
-                <ThemeProvider theme={Theme}>
-                    <ApplicationProvider {...Eva} theme={{ ...Eva.light, ...Theme }}>
-                        <MiddleEnd.Provider middleEnd={middleEnd}>
-                            <ReactRedux.Provider store={middleEnd.store}>
-                                <NavigationContainer>
-                                    <Stack.Navigator
-                                        screenOptions={{
-                                            headerStyle: {
-                                                backgroundColor: Theme.palette.brand[500]
-                                            },
-                                            headerTitle: 'sous',
-                                            headerTitleStyle: {
-                                                // TODO: Use Cooper here
-                                                fontSize: Theme.spacing(4.5),
-                                                color: Theme.palette.etch[300]
-                                            },
-                                            headerBackTitle: ''
-                                        }}
-                                    >
-                                        {Routes.map(({ path, component, options }) => {
+        <ThemeProvider theme={Theme}>
+            <KeyboardAvoidingView
+                behavior={Platform.OS === 'ios' ? 'padding' : null}
+                style={{ flex: 1 }}
+            >
+                <DrawerProvider>
+                    <SafeAreaView style={{ flex: 1, backgroundColor: Theme.palette.brand[500] }}>
 
-                                            return (
-                                                <Stack.Screen
-                                                    key={path}
-                                                    name={path}
-                                                    component={component}
-                                                    options={options}
-                                                />
-                                            );
-                                        })}
-                                    </Stack.Navigator>
-                                </NavigationContainer>
-                                <StatusBar style="auto" />
-                            </ReactRedux.Provider>
-                        </MiddleEnd.Provider>
-                    </ApplicationProvider>
-                </ThemeProvider>
-            </SafeAreaView>
-        </KeyboardAvoidingView>
+                        <ApplicationProvider {...Eva} theme={{ ...Eva.light, ...Theme }}>
+                            <MiddleEnd.Provider middleEnd={middleEnd}>
+                                <ReactRedux.Provider store={middleEnd.store}>
+                                    <NavigationContainer>
+                                        <Stack.Navigator
+                                            screenOptions={{
+                                                headerStyle: {
+                                                    backgroundColor: Theme.palette.brand[500]
+                                                },
+                                                headerTitle: 'sous',
+                                                headerTitleStyle: {
+                                                    // TODO: Use Cooper here
+                                                    fontSize: Theme.spacing(4.5),
+                                                    color: Theme.palette.etch[300]
+                                                },
+                                                headerBackTitle: ''
+                                            }}
+                                        >
+                                            {Routes.map(({ path, component, options }) => {
+
+                                                return (
+                                                    <Stack.Screen
+                                                        key={path}
+                                                        name={path}
+                                                        component={component}
+                                                        options={options}
+                                                    />
+                                                );
+                                            })}
+                                        </Stack.Navigator>
+                                    </NavigationContainer>
+                                    <StatusBar style="auto" />
+                                </ReactRedux.Provider>
+                            </MiddleEnd.Provider>
+                        </ApplicationProvider>
+
+                    </SafeAreaView>
+                </DrawerProvider>
+            </KeyboardAvoidingView>
+        </ThemeProvider>
     );
 };

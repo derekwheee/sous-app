@@ -6,7 +6,7 @@ const { Text } = require('components/Type');
 
 const Container = Styled.View``;
 
-const ListItem = Styled.View`
+const ListItem = Styled.Pressable`
     flex-direction: row;
     align-items: center;
     padding: ${({ theme }) => theme.spacing(2)}px;
@@ -32,21 +32,23 @@ const Right = Styled(Text)`
     text-transform: lowercase;
 `;
 
-module.exports = function List({ items = [] }) {
+module.exports = function List({ items, onPress }) {
 
     return (
         <Container>
-            {items.map(({ status, left, right }) => {
+            {items.map((item, index) => {
+
+                const { status, left, right } = item;
 
                 return (
-                    <>
-                        <ListItem>
+                    <React.Fragment key={item.id || index}>
+                        <ListItem onPress={() => onPress(item)}>
                             <StatusIcon level={status} />
                             <Left>{left}</Left>
                             <Right>{right}</Right>
                         </ListItem>
                         <Divider />
-                    </>
+                    </React.Fragment>
                 );
             })}
         </Container>
@@ -54,5 +56,11 @@ module.exports = function List({ items = [] }) {
 };
 
 module.exports.propTypes = {
-    items: T.array
+    items: T.array,
+    onPress: T.func
+};
+
+module.exports.defaultProps = {
+    items: [],
+    onPress: () => {}
 };

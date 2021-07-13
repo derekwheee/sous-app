@@ -30,7 +30,7 @@ module.exports = {
         ...paletteFromTheme(EvaTheme)
     },
     typography: {
-        primary: 'OpenSans_400Regular'
+        primary: 'Poppins_400Regular'
     },
     breakpoints: createBreakpoints()
 };

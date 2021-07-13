@@ -1,78 +1,73 @@
-const React = require('react');
+const { useState, ...React } = require('react');
 const T = require('prop-types');
 const SectionHeader = require('components/SectionHeader');
 const List = require('components/List');
+const PillMenu = require('components/PillMenu');
+const NewPantryItem = require('components/NewPantryItem');
+const { RECIPES, PANTRY } = require('utils/mock-data');
+const { recipeToListItem, pantryToListItem } = require('utils/list');
+const { useDrawer } = require('../../../hooks/use-drawer');
 
-const RECIPES = [
+const PILLS = [
     {
-        status: 'success',
-        left: 'Avocado Toast',
-        right: '12 / 12'
+        label: 'Things I can make'
     },
     {
-        status: 'success',
-        left: 'Spaghetti & Meatballs',
-        right: '12 / 12'
+        label: 'Under 30 minutes'
     },
     {
-        status: 'success',
-        left: 'Spaghetti & Meatballs',
-        right: '3 / 3'
-    },
-    {
-        status: 'warning',
-        left: 'Spaghetti & Meatballs',
-        right: '2 / 3'
-    },
-    {
-        left: 'Spaghetti & Meatballs',
-        right: '0 / 3'
-    }
-];
-
-const PANTRY = [
-    {
-        status: 'success',
-        left: 'All-Purpose Flour',
-        right: '300g'
-    },
-    {
-        status: 'success',
-        left: 'All-Purpose Flour',
-        right: '300g'
-    },
-    {
-        status: 'warning',
-        left: 'All-Purpose Flour',
-        right: '300g'
-    },
-    {
-        left: 'All-Purpose Flour',
-        right: '300g'
-    },
-    {
-        left: 'All-Purpose Flour',
-        right: '300g'
+        label: 'Vegatarian'
     }
 ];
 
 module.exports = function Home({ navigation }) {
 
+    const [activePill, setActivePill] = useState(PILLS[0].label);
+    const [openDrawer, closeDrawer] = useDrawer();
+
+    const pillItems = PILLS.map((pill) => {
+
+        return {
+            ...pill,
+            color: pill.label === activePill ? 'primary' : 'slate',
+            onPress: () => setActivePill(pill.label)
+        };
+    });
+
+    const handleAddPantryItem = (item) => {
+
+        closeDrawer();
+        console.log(item);
+    }
+
     return <>
         <SectionHeader
             navigatorLabel='See all recipes'
-            navigatorAction={() => {}}
+            navigatorAction={() => navigation.navigate('/recipes')}
         >
             Recipes
         </SectionHeader>
-        <List items={RECIPES} />
+        <PillMenu items={pillItems} />
+        <List
+            items={RECIPES.map(recipeToListItem)}
+            onPress={(recipe) => navigation.navigate('/recipe', { recipe })}
+        />
         <SectionHeader
+            adornment='plus'
             navigatorLabel='Add items'
-            navigatorAction={() => {}}
+            navigatorAction={() => openDrawer(() => {
+
+                return (
+                    <NewPantryItem
+                        onSubmit={handleAddPantryItem}
+                        onClose={closeDrawer}
+                    />
+                );
+            })}
         >
             Pantry
         </SectionHeader>
-        <List items={PANTRY} />
+        <List items={PANTRY.map(pantryToListItem)} />
     </>;
 };
 

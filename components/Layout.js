@@ -6,6 +6,7 @@ const {
     Keyboard,
     Platform
 } = require('react-native');
+const { useDrawer } = require('../hooks/use-drawer');
 
 const HeaderSpacer = Styled.View`
     background: ${({ theme }) => theme.palette.brand};
@@ -16,22 +17,26 @@ const Scroller = Styled(ScrollView)`
     background: ${({ theme }) => theme.palette.slate[300]};
 `;
 
-module.exports = function LayoutHOC(Component) {
+exports.withLayout = function withLayout(Component) {
 
     return function Layout(props) {
 
+        const [, closeDrawer] = useDrawer();
+
         return (
-            <>
-                <KeyboardAvoidingView
-                    style={{ flex: 1 }}
-                    behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-                >
-                    <HeaderSpacer />
-                    <Scroller onPress={Keyboard.dismiss}>
-                        <Component {...props} />
-                    </Scroller>
-                </KeyboardAvoidingView>
-            </>
+            <KeyboardAvoidingView
+                style={{ flex: 1 }}
+                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            >
+                <HeaderSpacer />
+                <Scroller onScrollBeginDrag={() => {
+
+                    Keyboard.dismiss();
+                    closeDrawer();
+                }}>
+                    <Component {...props} />
+                </Scroller>
+            </KeyboardAvoidingView>
         );
     };
 };

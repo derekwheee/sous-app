@@ -9,16 +9,19 @@ const Container = Styled.View`
     flex-direction: row;
     justify-content: space-between;
     align-items: baseline;
-    padding: ${({ theme }) => theme.spacing(3, 2)};
+    padding: ${({ theme }) => theme.spacing(3, 2, 0)};
 `;
 
 const ActionButton = Styled(Link)`
     padding-right: 0;
 `;
 
-const Navigator = Styled.View``;
+const Navigator = Styled.View`
+    position: relative;
+    top: -6px;
+`;
 
-module.exports = function SectionHeader({ navigatorLabel, navigatorAction, children }) {
+module.exports = function SectionHeader({ adornment, navigatorLabel, navigatorAction, children }) {
 
     return (
         <Container>
@@ -27,8 +30,11 @@ module.exports = function SectionHeader({ navigatorLabel, navigatorAction, child
                 <Navigator>
                     <ActionButton
                         adorn
+                        adornment={adornment}
                         onPress={navigatorAction}
-                    >{navigatorLabel}</ActionButton>
+                    >
+                        {navigatorLabel}
+                    </ActionButton>
                 </Navigator>
             )}
         </Container>
@@ -36,6 +42,7 @@ module.exports = function SectionHeader({ navigatorLabel, navigatorAction, child
 };
 
 module.exports.propTypes = {
+    adornment: T.string,
     navigatorLabel: T.string,
     navigatorAction: T.func,
     children: T.any

@@ -1,20 +1,36 @@
-const Layout = require('components/Layout');
+const { withLayout } = require('components/Layout');
 const Home = require('routes/home/components/Home');
-const Demo = require('routes/demo/containers/Demo');
+const Recipes = require('routes/recipes/components/Recipes');
+const Pantry = require('routes/pantry/components/Pantry');
+const Recipe = require('routes/recipe/components/Recipe');
 
 module.exports = [
     {
         path: '/',
-        component: Layout(Home),
+        component: withLayout(Home),
         options: {
             title: 'Home'
         }
     },
     {
-        path: '/demo',
-        component: Layout(Demo),
+        path: '/recipes',
+        component: withLayout(Recipes),
         options: {
-            title: 'Demo'
+            title: 'Recipes'
+        }
+    },
+    {
+        path: '/pantry',
+        component: withLayout(Pantry),
+        options: {
+            title: 'Pantry'
+        }
+    },
+    {
+        path: '/recipe',
+        component: withLayout(Recipe),
+        options: {
+            title: 'Recipe'
         }
     }
 ];
