@@ -59,13 +59,13 @@ exports.spacing = (...args) => {
 
     if (args.length === 1) {
         Assert(!isNaN(args[0]), `Expected '${args[0]}' to be a number`);
-        return parseInt(args[0], 10) * BASE_SCALING_FACTOR;
+        return Number(args[0]) * BASE_SCALING_FACTOR;
     }
 
     const argToValue = (a) => {
 
         Assert(a === 'auto' || !isNaN(a), `Expected '${a}' to be a number or 'auto'`);
-        return a === 'auto' ? a : `${parseInt(a, 10) * BASE_SCALING_FACTOR}px`;
+        return a === 'auto' ? a : `${Number(a) * BASE_SCALING_FACTOR}px`;
     };
 
     return args.map(argToValue).join(' ');

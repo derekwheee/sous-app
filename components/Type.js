@@ -22,9 +22,8 @@ exports.CenteredText = Styled.Text`
 exports.H1 = Styled.Text`
     ${({ theme }) => getBaseStyles(theme)}
     margin-bottom: ${({ theme }) => theme.spacing(4)}px;
-    font-family: 'OpenSans_700Bold';
-    font-size: ${({ theme }) => theme.spacing(4)}px;
-    font-weight: bold;
+    font-size: ${({ theme }) => theme.spacing(4.5)}px;
+    text-transform: lowercase;
 `;
 
 exports.H2 = Styled.Text`
@@ -33,6 +32,7 @@ exports.H2 = Styled.Text`
     font-family: 'OpenSans_700Bold';
     font-size: ${({ theme }) => theme.spacing(3)}px;
     font-weight: bold;
+    text-transform: lowercase;
 `;
 
 exports.H3 = Styled.Text`
@@ -41,4 +41,5 @@ exports.H3 = Styled.Text`
     font-family: 'OpenSans_700Bold';
     font-size: ${({ theme }) => theme.spacing(2.4)}px;
     font-weight: bold;
+    text-transform: lowercase;
 `;

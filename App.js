@@ -44,13 +44,26 @@ module.exports = function App() {
             behavior={Platform.OS === 'ios' ? 'padding' : null}
             style={{ flex: 1 }}
         >
-            <SafeAreaView style={{ flex: 1 }}>
+            <SafeAreaView style={{ flex: 1, backgroundColor: Theme.palette.brand[500] }}>
                 <ThemeProvider theme={Theme}>
                     <ApplicationProvider {...Eva} theme={{ ...Eva.light, ...Theme }}>
                         <MiddleEnd.Provider middleEnd={middleEnd}>
                             <ReactRedux.Provider store={middleEnd.store}>
                                 <NavigationContainer>
-                                    <Stack.Navigator>
+                                    <Stack.Navigator
+                                        screenOptions={{
+                                            headerStyle: {
+                                                backgroundColor: Theme.palette.brand[500]
+                                            },
+                                            headerTitle: 'sous',
+                                            headerTitleStyle: {
+                                                // TODO: Use Cooper here
+                                                fontSize: Theme.spacing(4.5),
+                                                color: Theme.palette.etch[300]
+                                            },
+                                            headerBackTitle: ''
+                                        }}
+                                    >
                                         {Routes.map(({ path, component, options }) => {
 
                                             return (
