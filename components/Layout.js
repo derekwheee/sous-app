@@ -12,6 +12,10 @@ const HeaderSpacer = Styled.View`
     height: ${({ theme }) => theme.spacing(1)}px;
 `;
 
+const Scroller = Styled(ScrollView)`
+    background: ${({ theme }) => theme.palette.slate[300]};
+`;
+
 module.exports = function LayoutHOC(Component) {
 
     return function Layout(props) {
@@ -23,9 +27,9 @@ module.exports = function LayoutHOC(Component) {
                     behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
                 >
                     <HeaderSpacer />
-                    <ScrollView onPress={Keyboard.dismiss}>
+                    <Scroller onPress={Keyboard.dismiss}>
                         <Component {...props} />
-                    </ScrollView>
+                    </Scroller>
                 </KeyboardAvoidingView>
             </>
         );
