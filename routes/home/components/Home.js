@@ -59,6 +59,7 @@ module.exports = function Home({ navigation }) {
 
                 return (
                     <NewPantryItem
+                        autoFocus
                         onSubmit={handleAddPantryItem}
                         onClose={closeDrawer}
                     />

@@ -1,11 +1,16 @@
-const { useState, useRef, ...React } = require('react');
+const { useState, useRef, useEffect, ...React } = require('react');
 const T = require('prop-types');
 const { default: Styled } = require('styled-components/native');
 const { ScrollView } = require('react-native');
 const { Label, TextInput } = require('components/FormFields');
 const { Button } = require('components/Buttons');
 
-const Container = Styled(ScrollView)`
+const Scroller = Styled(ScrollView)`
+`;
+
+const Container = Styled.View`
+    display: flex;
+    height: 450px;
     padding: ${({ theme }) => theme.spacing(2)}px;
 `;
 
@@ -15,68 +20,85 @@ const StyledTextInput = Styled(TextInput)`
 
 const Buttons = Styled.View`
     flex-direction: row;
-    justify-content: flex-end;
-    margin-bottom: ${({ theme }) => theme.spacing(6)}px;
+    align-self: flex-end;
 `;
 
 const ActionButton = Styled(Button)`
     margin-left: ${({ theme }) => theme.spacing(2)}px;
 `;
 
-module.exports = function NewPantryItem({ onSubmit, onClose }) {
+const Spacer = Styled.View`
+    flex-grow: 1;
+`;
+
+module.exports = function NewPantryItem({ autoFocus, onSubmit, onClose }) {
 
     const [name, setName] = useState('');
     const [category, setCategory] = useState('');
     const [quantity, setQuantity] = useState('');
 
-    const scrollRef = useRef(null);
+    const nameRef = useRef(null);
     const categoryRef = useRef(null);
     const quantityRef = useRef(null);
 
+    useEffect(() => {
+
+        if (autoFocus) {
+            nameRef.current.focus();
+        }
+    }, [nameRef, autoFocus])
+
     return (
-        <Container ref={scrollRef}>
-            <Label>Item Name</Label>
-            <StyledTextInput
-                returnKeyType='next'
-                value={name}
-                onChangeText={(t) => setName(t)}
-                onSubmitEditing={() => categoryRef.current.focus()}
-            />
-            <Label>Category</Label>
-            <StyledTextInput
-                ref={categoryRef}
-                returnKeyType='next'
-                value={category}
-                onChangeText={(t) => setCategory(t)}
-                onSubmitEditing={() => quantityRef.current.focus()}
-            />
-            <Label>Quantity</Label>
-            <StyledTextInput
-                ref={quantityRef}
-                returnKeyType='done'
-                value={quantity}
-                onChangeText={(t) => setQuantity(t)}
-                onSubmitEditing={() => scrollRef.current.scrollToEnd()}
-            />
-            <Buttons>
-                {onClose && (
-                    <ActionButton color='slate' onPress={onClose}>Cancel</ActionButton>
-                )}
-                <ActionButton
-                    onPress={() => onSubmit({ name, category, quantity })}
-                >
+        <Scroller>
+            <Container>
+                <Spacer />
+                <Label>Item Name</Label>
+                <StyledTextInput
+                    ref={nameRef}
+                    returnKeyType='next'
+                    value={name}
+                    onChangeText={(t) => setName(t)}
+                    onSubmitEditing={() => categoryRef.current.focus()}
+                />
+                <Label>Category</Label>
+                <StyledTextInput
+                    ref={categoryRef}
+                    returnKeyType='next'
+                    value={category}
+                    onChangeText={(t) => setCategory(t)}
+                    onSubmitEditing={() => quantityRef.current.focus()}
+                />
+                <Label>Quantity</Label>
+                <StyledTextInput
+                    ref={quantityRef}
+                    returnKeyType='done'
+                    value={quantity}
+                    onChangeText={(t) => setQuantity(t)}
+                />
+                <Spacer />
+                <Buttons>
+                    {onClose && (
+                        <ActionButton color='slate' onPress={onClose}>Cancel</ActionButton>
+                    )}
+                    <ActionButton
+                        onPress={() => onSubmit({ name, category, quantity })}
+                    >
                         Add to pantry
-                </ActionButton>
-            </Buttons>
-        </Container>
+                    </ActionButton>
+                </Buttons>
+                <Spacer />
+            </Container>
+        </Scroller>
     );
 };
 
 module.exports.propTypes = {
+    autoFocus: T.bool,
     onSubmit: T.func.isRequired,
     onClose: T.func
 };
 
 module.exports.defaultProps = {
+    autoFocus: false,
     onClose: null
 };
