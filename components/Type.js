@@ -44,3 +44,10 @@ exports.H3 = Styled.Text`
     font-weight: bold;
     text-transform: lowercase;
 `;
+
+exports.H4 = Styled.Text`
+    ${({ theme }) => getBaseStyles(theme)}
+    margin-bottom: ${({ theme }) => theme.spacing(2)}px;
+    font-family: 'Poppins_500Medium';
+    text-transform: lowercase;
+`;

@@ -8,7 +8,13 @@ const { recipeToListItem } = require('utils/list');
 module.exports = function Recipes({ navigation }) {
 
     return <>
-        <SectionHeader>Recipes</SectionHeader>
+        <SectionHeader
+            endAdornment='plus'
+            navigatorLabel='Add recipe'
+            navigatorAction={() => navigation.navigate('/recipe/new')}
+        >
+            Recipes
+        </SectionHeader>
         <List
             items={RECIPES.map(recipeToListItem)}
             onPress={(recipe) => navigation.navigate('/recipe', { recipe })}

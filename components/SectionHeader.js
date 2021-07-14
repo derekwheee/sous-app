@@ -21,7 +21,7 @@ const Navigator = Styled.View`
     top: -6px;
 `;
 
-module.exports = function SectionHeader({ adornment, navigatorLabel, navigatorAction, children }) {
+module.exports = function SectionHeader({ adornment = 'chevron-right', navigatorLabel, navigatorAction, children }) {
 
     return (
         <Container>
@@ -29,8 +29,7 @@ module.exports = function SectionHeader({ adornment, navigatorLabel, navigatorAc
             {navigatorLabel && (
                 <Navigator>
                     <ActionButton
-                        adorn
-                        adornment={adornment}
+                        endAdornment={adornment}
                         onPress={navigatorAction}
                     >
                         {navigatorLabel}

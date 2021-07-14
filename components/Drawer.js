@@ -39,11 +39,7 @@ exports.DrawerProvider = function DrawerProvider({ children }) {
 
     const openDrawer = useCallback((content) => {
 
-        console.log('help');
-
         setContent(content);
-
-        console.log('open');
 
         Animated.timing(overlayAnim, {
             toValue: 0.6,

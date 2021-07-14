@@ -19,7 +19,7 @@ module.exports = function Pantry({ navigation }) {
 
     return <>
         <SectionHeader
-            adornment='plus'
+            endAdornment='plus'
             navigatorLabel='Add items'
             navigatorAction={() => {
 

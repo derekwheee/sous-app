@@ -10,7 +10,7 @@ exports.Label = Styled(Text)`
     text-transform: lowercase;
 `;
 
-exports.TextInput = Styled(TextInput).attrs({
+const BaseInput = Styled(TextInput).attrs({
     onFocus: ({ currentTarget }) => {
 
         currentTarget.setNativeProps({
@@ -28,4 +28,25 @@ exports.TextInput = Styled(TextInput).attrs({
     padding: ${({ theme }) => theme.spacing(1.5, 3)}
     border: 1px solid ${({ theme }) => theme.palette.slate};
     border-radius: ${({ theme }) => theme.spacing(4)}px;
+
+    ${({ theme, variant }) => {
+
+        if (variant === 'header') {
+            return `
+                padding: ${theme.spacing(1.5, 0)};
+                border-width: 0;
+                font-family: 'Poppins_400Regular';
+                font-size: ${theme.spacing(4.5)}px;
+            `;
+        }
+    }}
+`;
+
+exports.TextInput = BaseInput;
+
+exports.TextInputUnderline = Styled(BaseInput)`
+    position: relative;
+    top: 1px;
+    border: 0;
+    padding: 0;
 `;

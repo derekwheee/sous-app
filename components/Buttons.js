@@ -17,7 +17,7 @@ const Container = Styled.Pressable`
 const ButtonText = Styled(Text)`
     position: relative;
     top: -1px;
-    margin: 0 auto;
+    margin: 0 ${({ align }) => (align === 'left' ? 0 : 'auto')};
     text-transform: lowercase;
     color: ${({ theme, color }) => {
 
@@ -29,30 +29,36 @@ const ButtonText = Styled(Text)`
     }};
 `;
 
-const Adornment = Styled(Icon)`
-    position: relative;
-    top: 1px;
+const StartAdornment = Styled(Icon)`
+    margin-right: ${({ theme }) => theme.spacing(1)}px;
+`;
+
+const EndAdornment = Styled(Icon)`
     margin-left: ${({ theme }) => theme.spacing(2)}px;
 `;
 
-const ButtonBase = function ButtonBase({ adorn, adornment, color, style, textStyles, children, ...props }) {
+const ButtonBase = function ButtonBase({ startAdornment, endAdornment, color, style, textStyles, textProps, children, ...props }) {
 
     return (
         <Container style={style} color={color} {...props}>
-            <ButtonText style={textStyles} color={color}>{children}</ButtonText>
-            {adorn && (
-                <Adornment name={adornment} size={12} color={textStyles.color} />
+            {startAdornment && (
+                <StartAdornment name={startAdornment} size={12} color={textStyles.color} />
+            )}
+            <ButtonText style={textStyles} color={color} {...textProps}>{children}</ButtonText>
+            {endAdornment && (
+                <EndAdornment name={endAdornment} size={12} color={textStyles.color} />
             )}
         </Container>
     );
 };
 
 ButtonBase.propTypes = {
-    adorn: T.bool,
-    adornment: T.string,
+    startAdornment: T.string,
+    endAdornment: T.string,
     color: T.oneOf(Object.keys(Theme.palette)),
     style: T.array,
     textStyles: T.object,
+    textProps: T.object,
     children: T.string
 };
 
@@ -64,10 +70,14 @@ ButtonBase.defaultProps = {
 
 exports.Button = ButtonBase;
 
-exports.Link = Styled(ButtonBase).attrs({
-    textStyles: {
-        color: Theme.palette.primary[500]
-    }
+exports.Link = Styled(ButtonBase).attrs((props) => {
+
+    return {
+        textStyles: {
+            color: Theme.palette.primary[500],
+            ...props.textStyles
+        }
+    };
 })`
     background: transparent;
 `;

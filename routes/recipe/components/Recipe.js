@@ -35,29 +35,39 @@ module.exports = function Recipe({ route }) {
 
     const recipe = route?.params?.recipe;
 
-    const { cookTime, prepTime } = recipe;
+    if (!recipe) {
+        return null;
+    }
+
+    const {
+        name,
+        cookTime,
+        prepTime,
+        ingredients = [],
+        images = [
+            'https://i.stack.imgur.com/y9DpT.jpg',
+            'https://i.stack.imgur.com/y9DpT.jpg',
+            'https://i.stack.imgur.com/y9DpT.jpg'
+        ],
+        instructions = []
+    } = recipe;
 
     return <>
-        <CooperHeader>{recipe.name}</CooperHeader>
+        <CooperHeader>{name}</CooperHeader>
         <Stats>
             <Stat label='Prep Time' value={`${prepTime.duration} ${prepTime.unit}`} />
             <Stat label='Cook Time' value={`${cookTime.duration} ${cookTime.unit}`} />
         </Stats>
         <Ingredients>
             <H2>Ingredients</H2>
-            <IngredientsList items={recipe.ingredients} />
+            <IngredientsList items={ingredients} />
         </Ingredients>
         <Gallery horizontal>
-            {/* TODO: Get images from recipe */}
-            <GalleryImage source={{ uri: 'https://images.unsplash.com/photo-1603046891726-36bfd957e0bf?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80' }} />
-            <GalleryImage source={{ uri: 'https://images.unsplash.com/photo-1578830610378-23b3b0edef93?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=658&q=80' }} />
-            <GalleryImage source={{ uri: 'https://images.unsplash.com/photo-1588137378633-dea1336ce1e2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80' }} />
-            <GalleryImage source={{ uri: 'https://images.unsplash.com/photo-1590301157172-7ba48dd1c2b2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=976&q=80' }} />
-            <GalleryImage source={{ uri: 'https://images.unsplash.com/photo-1588137378633-dea1336ce1e2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80' }} />
+            {images.map((uri, index) => <GalleryImage source={{ uri }} key={index + uri} />)}
         </Gallery>
         <Instructions>
             <H2>Instructions</H2>
-            <InstructionsList items={recipe.instructions} />
+            <InstructionsList items={instructions} />
         </Instructions>
     </>;
 };

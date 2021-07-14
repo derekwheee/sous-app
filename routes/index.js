@@ -3,6 +3,7 @@ const Home = require('routes/home/components/Home');
 const Recipes = require('routes/recipes/components/Recipes');
 const Pantry = require('routes/pantry/components/Pantry');
 const Recipe = require('routes/recipe/components/Recipe');
+const NewRecipe = require('routes/recipe/components/New');
 
 module.exports = [
     {
@@ -31,6 +32,13 @@ module.exports = [
         component: withLayout(Recipe),
         options: {
             title: 'Recipe'
+        }
+    },
+    {
+        path: '/recipe/new',
+        component: withLayout(NewRecipe),
+        options: {
+            title: 'New Recipe'
         }
     }
 ];
