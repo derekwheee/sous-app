@@ -1,8 +1,8 @@
 exports.recipeToListItem = (recipe) => {
 
-    const { name, ingredientsAvailable, ingredientsCount } = recipe;
+    const { name, ingredientsAvailable, ingredients } = recipe;
 
-    const ingredientRatio = recipe.ingredientsAvailable / recipe.ingredientsCount;
+    const ingredientRatio = ingredientsAvailable / ingredients.length;
 
     let status = null;
 
@@ -17,7 +17,7 @@ exports.recipeToListItem = (recipe) => {
     return {
         status,
         left: name,
-        right: `${ingredientsAvailable} / ${ingredientsCount}`,
+        right: `${ingredientsAvailable} / ${ingredients.length}`,
         ...recipe
     };
 };

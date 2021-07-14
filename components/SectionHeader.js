@@ -9,7 +9,7 @@ const Container = Styled.View`
     flex-direction: row;
     justify-content: space-between;
     align-items: baseline;
-    padding: ${({ theme }) => theme.spacing(3, 2, 0)};
+    padding: ${({ theme }) => theme.spacing(4, 2, 0)};
 `;
 
 const ActionButton = Styled(Link)`
