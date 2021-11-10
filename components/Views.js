@@ -8,6 +8,25 @@ exports.CenteredView = Styled.View`
     margin: auto;
 `;
 
+exports.PaddedView = Styled.View`
+    padding: 0 16px;
+
+    ${({ theme, gutterTop, gutterBottom }) => {
+
+        if (gutterTop) {
+            return `
+                padding-top: ${theme.spacing(2)}px;
+            `;
+        }
+
+        if (gutterBottom) {
+            return `
+                padding-bottom: ${theme.spacing(2)}px;
+            `;
+        }
+    }}
+`;
+
 exports.FormView = function FormView({ children }) {
 
     return (

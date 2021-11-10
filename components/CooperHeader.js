@@ -13,10 +13,10 @@ const Header = Styled(Text)`
     text-transform: lowercase;
 `;
 
-module.exports = function CooperHeader({ children }) {
+module.exports = function CooperHeader({ children, ...props }) {
 
     return (
-        <Container>
+        <Container {...props}>
             <Header>{children}</Header>
         </Container>
     );

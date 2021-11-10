@@ -29,7 +29,10 @@ module.exports = function (api) {
                         components: Path.resolve(__dirname, 'components'),
                         containers: Path.resolve(__dirname, 'containers'),
                         icons: Path.resolve(__dirname, 'icons'),
-                        theme: Path.resolve(__dirname, 'theme')
+                        theme: Path.resolve(__dirname, 'theme'),
+                        utils: Path.resolve(__dirname, 'utils'),
+                        assets: Path.resolve(__dirname, 'assets'),
+                        hooks: Path.resolve(__dirname, 'hooks')
                     }
                 }
             ],

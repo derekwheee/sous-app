@@ -11,7 +11,7 @@ module.exports = function Recipes({ navigation }) {
         <SectionHeader
             endAdornment='plus'
             navigatorLabel='Add recipe'
-            navigatorAction={() => navigation.navigate('/recipe/new')}
+            navigatorAction={() => navigation.navigate('recipes/new')}
         >
             Recipes
         </SectionHeader>

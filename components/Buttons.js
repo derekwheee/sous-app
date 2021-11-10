@@ -81,3 +81,9 @@ exports.Link = Styled(ButtonBase).attrs((props) => {
 })`
     background: transparent;
 `;
+
+exports.RoundedButton = Styled(ButtonBase)`
+    border-radius: ${({ theme }) => theme.spacing(4)}px;
+
+    ${({ theme, $float }) => ($float ? `box-shadow: ${theme.shape.boxShadow}` : '')}
+`;

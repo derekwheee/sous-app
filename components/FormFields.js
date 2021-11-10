@@ -50,3 +50,10 @@ exports.TextInputUnderline = Styled(BaseInput)`
     border: 0;
     padding: 0;
 `;
+
+exports.TextInputHeader = Styled(BaseInput)`
+    position: relative;
+    top: 1px;
+    border: 0;
+    padding: 0;
+`;

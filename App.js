@@ -1,18 +1,21 @@
 const React = require('react');
-const { default: AppLoading } = require('expo-app-loading');
-const { StatusBar } = require('expo-status-bar');
-const { ThemeProvider } = require('styled-components');
-const { NavigationContainer } = require('@react-navigation/native');
-const { createStackNavigator } = require('@react-navigation/stack');
 const ReactRedux = require('react-redux');
-const MiddleEnd = require('strange-middle-end');
-const { KeyboardAvoidingView, Platform } = require('react-native');
 const Eva = require('@eva-design/eva');
+const MiddleEnd = require('strange-middle-end');
 const { ApplicationProvider } = require('@ui-kitten/components');
+const { ThemeProvider } = require('styled-components');
+const { DrawerProvider } = require('components/Drawer');
+const { NavigationContainer } = require('@react-navigation/native');
+const { createDrawerNavigator } = require('@react-navigation/drawer');
+const { StatusBar } = require('expo-status-bar');
+const { default: Constants } = require('expo-constants');
+const { default: AppLoading } = require('expo-app-loading');
 const M = require('middle-end');
 const Theme = require('theme');
-const Routes = require('routes');
-const { DrawerProvider } = require('components/Drawer');
+
+const Home = require('routes/home/containers/Home');
+const Recipes = require('routes/recipes/containers/Recipes');
+
 const { useFonts: useCustomFonts } = require('expo-font');
 const {
     useFonts,
@@ -29,10 +32,10 @@ const {
 } = require('@expo-google-fonts/poppins');
 
 const middleEnd = M.create({
-    logErrors: process.env.NODE_ENV !== 'test'
+    apiBaseUrl: Constants.manifest.extra.apiBaseUrl
 }).initialize();
 
-const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
 
 module.exports = function App() {
 
@@ -59,48 +62,41 @@ module.exports = function App() {
 
     return (
         <ThemeProvider theme={Theme}>
-            <KeyboardAvoidingView
-                behavior={Platform.OS === 'ios' ? 'padding' : null}
-                style={{ flex: 1 }}
-            >
-                <DrawerProvider>
-                    <ApplicationProvider {...Eva} theme={{ ...Eva.light, ...Theme }}>
-                        <MiddleEnd.Provider middleEnd={middleEnd}>
-                            <ReactRedux.Provider store={middleEnd.store}>
-                                <NavigationContainer>
-                                    <Stack.Navigator
-                                        screenOptions={{
-                                            headerStyle: {
-                                                backgroundColor: Theme.palette.brand[500]
-                                            },
-                                            headerTitle: 'sous',
-                                            headerTitleStyle: {
-                                                fontFamily: 'Cooper',
-                                                fontSize: Theme.spacing(4.5),
-                                                color: Theme.palette.etch[300]
-                                            },
-                                            headerBackTitle: ''
-                                        }}
-                                    >
-                                        {Routes.map(({ path, component, options }) => {
-
-                                            return (
-                                                <Stack.Screen
-                                                    key={path}
-                                                    name={path}
-                                                    component={component}
-                                                    options={options}
-                                                />
-                                            );
-                                        })}
-                                    </Stack.Navigator>
-                                </NavigationContainer>
-                                <StatusBar style="auto" />
-                            </ReactRedux.Provider>
-                        </MiddleEnd.Provider>
-                    </ApplicationProvider>
-                </DrawerProvider>
-            </KeyboardAvoidingView>
+            <DrawerProvider>
+                <ApplicationProvider {...Eva} theme={{ ...Eva.light, ...Theme }}>
+                    <MiddleEnd.Provider middleEnd={middleEnd}>
+                        <ReactRedux.Provider store={middleEnd.store}>
+                            <NavigationContainer>
+                                <Drawer.Navigator
+                                    initialRouteName='Home'
+                                    screenOptions={{
+                                        headerStyle: {
+                                            backgroundColor: Theme.palette.brand[500]
+                                        },
+                                        headerTitle: 'sous',
+                                        headerTitleStyle: {
+                                            fontFamily: 'Cooper',
+                                            fontSize: Theme.spacing(4.5),
+                                            color: Theme.palette.etch[300]
+                                        },
+                                        headerBackTitle: ''
+                                    }}
+                                >
+                                    <Drawer.Screen
+                                        name='home'
+                                        component={Home}
+                                    />
+                                    <Drawer.Screen
+                                        name='recipes'
+                                        component={Recipes}
+                                    />
+                                </Drawer.Navigator>
+                            </NavigationContainer>
+                            <StatusBar style="auto" />
+                        </ReactRedux.Provider>
+                    </MiddleEnd.Provider>
+                </ApplicationProvider>
+            </DrawerProvider>
         </ThemeProvider>
     );
 };
